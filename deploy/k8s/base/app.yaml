@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: private-ai-lab-api
+  namespace: private-ai-lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: private-ai-lab-api
+  template:
+    metadata:
+      labels:
+        app: private-ai-lab-api
+    spec:
+      containers:
+        - name: api
+          image: private-ai-lab:local
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: private-ai-lab-config
+            - secretRef:
+                name: private-ai-lab-secrets
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: private-ai-lab-api
+  namespace: private-ai-lab
+spec:
+  selector:
+    app: private-ai-lab-api
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000

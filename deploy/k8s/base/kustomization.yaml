@@ -1,0 +1,6 @@
+resources:
+  - namespace.yaml
+  - secret.example.yaml
+  - configmap.yaml
+  - postgres.yaml
+  - app.yaml

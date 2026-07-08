@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: private-ai-lab-config
+  namespace: private-ai-lab
+data:
+  APP_NAME: Private AI Lab
+  ENVIRONMENT: k3d
+  DATABASE_URL: postgresql+psycopg://private_ai:private_ai@postgres:5432/private_ai
+  INIT_DB_ON_STARTUP: "true"
+  EMBEDDING_PROVIDER: hash
+  EMBEDDING_DIMENSIONS: "384"
+  EMBEDDING_BASE_URL: http://ollama:11434/v1
+  EMBEDDING_MODEL: text-embedding-3-small
+  LLM_BASE_URL: http://ollama:11434/v1
+  LLM_MODEL: llama3.2:3b
+  LOG_LEVEL: INFO

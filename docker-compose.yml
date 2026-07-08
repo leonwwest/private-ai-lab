@@ -1,0 +1,72 @@
+services:
+  app:
+    build: .
+    container_name: private-ai-lab-api
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://private_ai:private_ai@postgres:5432/private_ai
+      LLM_BASE_URL: http://ollama:11434/v1
+      EMBEDDING_BASE_URL: http://ollama:11434/v1
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+    volumes:
+      - ./data/uploads:/data/uploads
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: private-ai-lab-postgres
+    environment:
+      POSTGRES_USER: private_ai
+      POSTGRES_PASSWORD: private_ai
+      POSTGRES_DB: private_ai
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U private_ai -d private_ai"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: private-ai-lab-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    container_name: private-ai-lab-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - app
+
+  grafana:
+    image: grafana/grafana:11.3.0
+    container_name: private-ai-lab-grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_DEFAULT_THEME: light
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+
+volumes:
+  postgres-data:
+  ollama-data:
