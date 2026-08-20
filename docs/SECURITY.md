@@ -23,7 +23,6 @@ wichtig sind.
 - rollenbasierte Auth statt einem API-Key
 - Malware-/Content-Scanning fuer Uploads
 - Audit-Log fuer Dokumentzugriffe
-- Backup-Strategie fuer Postgres
 - Retention-Konzept fuer Dokumente und Logs
 
 Das ausfuehrliche [Threat Model](THREAT_MODEL.md) dokumentiert Assets, Trust Boundaries,
