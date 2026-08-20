@@ -13,6 +13,14 @@ spec:
       labels:
         app: private-ai-lab-api
     spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: api
           image: private-ai-lab:local
@@ -24,6 +32,23 @@ spec:
                 name: private-ai-lab-config
             - secretRef:
                 name: private-ai-lab-secrets
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - name: temporary-files
+              mountPath: /tmp
+            - name: uploads
+              mountPath: /data/uploads
           readinessProbe:
             httpGet:
               path: /readyz
@@ -36,6 +61,11 @@ spec:
               port: 8000
             initialDelaySeconds: 10
             periodSeconds: 20
+      volumes:
+        - name: temporary-files
+          emptyDir: {}
+        - name: uploads
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service

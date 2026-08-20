@@ -2,13 +2,15 @@ PYTHON ?= python3
 VENV := .venv
 BIN := $(VENV)/bin
 
-.PHONY: help venv test lint run compose-up compose-down docker-build k3d-up k3d-down
+.PHONY: help venv test lint security verify run compose-up compose-down docker-build k3d-up k3d-down
 
 help:
 	@echo "Targets:"
 	@echo "  make venv          create local virtualenv and install dev deps"
 	@echo "  make test          run pytest"
 	@echo "  make lint          run ruff"
+	@echo "  make security      scan secrets and configuration with Trivy"
+	@echo "  make verify        run lint, tests and security scan"
 	@echo "  make run           run FastAPI locally without Docker"
 	@echo "  make compose-up    start Docker stack"
 	@echo "  make k3d-up        create k3d cluster and apply manifests"
@@ -23,6 +25,11 @@ test:
 
 lint:
 	$(BIN)/python -m ruff check .
+
+security:
+	trivy fs --scanners secret,misconfig --severity HIGH,CRITICAL --exit-code 1 .
+
+verify: lint test security
 
 run:
 	INIT_DB_ON_STARTUP=false LLM_BASE_URL=mock $(BIN)/python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000

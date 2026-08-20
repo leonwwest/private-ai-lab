@@ -28,6 +28,7 @@ es spaeter mit wenig Nacharbeit oeffentlich gezeigt werden kann.
 - Docker Compose fuer lokale Plattformtests
 - k3d/Kubernetes-Manifeste als Deployment-Demo
 - GitHub Actions fuer Lint und Tests
+- Non-root Container und Kubernetes `restricted` Pod Security mit getesteten Security Contexts
 
 ## Architektur
 
