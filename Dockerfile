@@ -8,7 +8,13 @@ WORKDIR /app
 COPY pyproject.toml README.md ./
 COPY app ./app
 
-RUN pip install --no-cache-dir .
+RUN pip install --no-cache-dir . \
+    && groupadd --gid 10001 app \
+    && useradd --uid 10001 --gid app --no-create-home --shell /usr/sbin/nologin app \
+    && mkdir -p /data/uploads \
+    && chown -R app:app /data
+
+USER 10001:10001
 
 EXPOSE 8000
 
