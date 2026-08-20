@@ -1,6 +1,9 @@
 resources:
   - namespace.yaml
+  - default-deny-network-policy.yaml
   - secret.example.yaml
   - configmap.yaml
   - postgres.yaml
+  - postgres-network-policy.yaml
   - app.yaml
+  - api-network-policy.yaml
