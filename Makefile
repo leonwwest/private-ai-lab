@@ -19,13 +19,13 @@ venv:
 	$(BIN)/python -m pip install -e ".[dev]"
 
 test:
-	$(BIN)/pytest
+	$(BIN)/python -m pytest
 
 lint:
-	$(BIN)/ruff check .
+	$(BIN)/python -m ruff check .
 
 run:
-	INIT_DB_ON_STARTUP=false LLM_BASE_URL=mock $(BIN)/uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+	INIT_DB_ON_STARTUP=false LLM_BASE_URL=mock $(BIN)/python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 compose-up:
 	cp -n .env.example .env || true
