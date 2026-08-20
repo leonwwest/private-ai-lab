@@ -44,3 +44,7 @@ Die Dimension muss zur pgvector-Spalte passen. Standard ist `384`.
 Docker Compose ist fuer den lokalen Gesamtstack gedacht. k3d zeigt, wie die
 gleiche App in Kubernetes betrieben werden koennte. Die k3d-Manifeste sind
 bewusst klein gehalten, damit sie im Portfolio lesbar bleiben.
+
+Security- und Datenschutzgrenzen sind separat im [Threat Model](THREAT_MODEL.md) dokumentiert.
+Die synthetische [Offline-RAG-Evaluation](evidence/rag-evaluation.md) prueft die Retrieval-Verkabelung
+reproduzierbar, ohne echte Dokumente oder externe Modellaufrufe.

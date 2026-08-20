@@ -12,6 +12,9 @@ wichtig sind.
 - Healthchecks getrennt von geschuetzten RAG-Endpunkten
 - strukturierte Logs ohne PDF-Inhalte
 - Upload-Limit ueber `MAX_UPLOAD_MB`
+- Non-root Container, Kubernetes `restricted` Pod Security und read-only Root-Dateisysteme
+- Default-deny NetworkPolicy mit expliziten Servicepfaden
+- vollstaendig offline ausfuehrbare Hash-Embeddings und RAG-Evaluation
 
 ## Vor echter Nutzung ergaenzen
 
@@ -23,11 +26,15 @@ wichtig sind.
 - Backup-Strategie fuer Postgres
 - Retention-Konzept fuer Dokumente und Logs
 
+Das ausfuehrliche [Threat Model](THREAT_MODEL.md) dokumentiert Assets, Trust Boundaries,
+implementierte Controls und verbleibende Risiken.
+
 ## Vor oeffentlicher Freigabe
 
 ```bash
-gitleaks detect --source . --redact --no-banner --exit-code 42
-git status -sb
+gitleaks git --no-banner --redact=100 .
+make verify
+git status --short
 ```
 
 Zusaetzlich README und `.env.example` pruefen, damit keine privaten Pfade,

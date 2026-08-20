@@ -134,6 +134,14 @@ Produktionsbausteine.
 
 ## Projektstatus
 
-Aktueller Fokus: privates Testrepo. Vor oeffentlicher Freigabe sollten noch
-ein echter Docker-Run, ein Screenshot der API-Doku, ein Beispiel-PDF-Test und ein
-finaler Secret-Scan gemacht werden.
+Die Public-Readiness ist lokal verifiziert: kompletter Git-Verlauf ohne Secret-Fund, 0
+High/Critical-Trivy-Befunde, deterministische Tests und synthetische RAG-Evidence. Eine
+Sichtbarkeitsaenderung bleibt eine separate bewusste Entscheidung und veroeffentlicht niemals die
+lokal ignorierten PDFs, Datenbanken oder `.env`-Dateien.
+
+Vertiefende Nachweise:
+
+- [Architektur](docs/ARCHITECTURE.md)
+- [Threat Model und Privacy Boundaries](docs/THREAT_MODEL.md)
+- [Offline-RAG-Evaluation](docs/evidence/rag-evaluation.md)
+- [Operations](docs/OPERATIONS.md)
