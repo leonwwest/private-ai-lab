@@ -31,6 +31,7 @@ es spaeter mit wenig Nacharbeit oeffentlich gezeigt werden kann.
 - Non-root Container und Kubernetes `restricted` Pod Security mit getesteten Security Contexts
 - Default-deny `NetworkPolicy` mit expliziten API-, Postgres-, DNS- und Ollama-Pfaden
 - deterministische Offline-RAG-Evaluation mit synthetischem Datensatz, Top-1-Accuracy und MRR
+- guarded PostgreSQL-Backup/Restore-Uebung in einer wegwerfbaren Verifikationsdatenbank
 
 ## Architektur
 
@@ -145,3 +146,4 @@ Vertiefende Nachweise:
 - [Threat Model und Privacy Boundaries](docs/THREAT_MODEL.md)
 - [Offline-RAG-Evaluation](docs/evidence/rag-evaluation.md)
 - [Operations](docs/OPERATIONS.md)
+- [PostgreSQL Backup und Recovery](docs/POSTGRES_RECOVERY.md)

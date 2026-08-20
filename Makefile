@@ -2,7 +2,7 @@ PYTHON ?= python3
 VENV := .venv
 BIN := $(VENV)/bin
 
-.PHONY: help venv test lint rag-eval security verify run compose-up compose-down docker-build k3d-up k3d-down
+.PHONY: help venv test lint rag-eval security verify run compose-up compose-down docker-build k3d-up k3d-down recovery-backup recovery-verify recovery-exercise
 
 help:
 	@echo "Targets:"
@@ -12,6 +12,8 @@ help:
 	@echo "  make rag-eval      run deterministic offline retrieval evaluation"
 	@echo "  make security      scan secrets and configuration with Trivy"
 	@echo "  make verify        run lint, tests and security scan"
+	@echo "  make recovery-backup   create and validate a local PostgreSQL backup"
+	@echo "  make recovery-exercise restore into a disposable verification database"
 	@echo "  make run           run FastAPI locally without Docker"
 	@echo "  make compose-up    start Docker stack"
 	@echo "  make k3d-up        create k3d cluster and apply manifests"
@@ -54,3 +56,12 @@ k3d-up:
 
 k3d-down:
 	k3d cluster delete private-ai-lab
+
+recovery-backup:
+	./scripts/postgres-recovery.sh backup
+
+recovery-verify:
+	./scripts/postgres-recovery.sh verify
+
+recovery-exercise:
+	./scripts/postgres-recovery.sh exercise

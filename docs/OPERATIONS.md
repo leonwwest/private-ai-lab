@@ -49,3 +49,8 @@ Die App exportiert:
 
 Prometheus scraped die API unter `/metrics`. Grafana wird mit einem einfachen
 Dashboard provisioniert.
+
+## PostgreSQL Recovery
+
+Der [Backup- und Recovery-Runbook](POSTGRES_RECOVERY.md) beschreibt einen opt-in Restore in eine
+wegwerfbare Verifikationsdatenbank. Die Primaerdatenbank wird dabei nicht ueberschrieben.
