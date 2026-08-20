@@ -1,5 +1,7 @@
 # Private AI Lab
 
+![Private AI Lab overview](assets/social-preview.svg)
+
 Lokale Private-AI-Plattform als Portfolio-Projekt: FastAPI-App, RAG ueber eigene
 PDFs, Postgres mit pgvector, API-Key-Auth, strukturierte Logs, Prometheus-Metrics,
 Grafana-Dashboard und Deployment-Artefakte fuer Docker Compose und k3d.
