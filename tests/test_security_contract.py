@@ -30,3 +30,21 @@ def test_kubernetes_workloads_define_explicit_security_boundaries() -> None:
     assert manifests.count('drop: ["ALL"]') == 2
     assert manifests.count("readOnlyRootFilesystem: true") == 2
     assert manifests.count("type: RuntimeDefault") == 2
+
+
+def test_network_policies_default_to_isolation_and_allow_only_required_paths() -> None:
+    manifest_dir = ROOT / "deploy" / "k8s" / "base"
+    default_deny = (manifest_dir / "default-deny-network-policy.yaml").read_text()
+    api_policy = (manifest_dir / "api-network-policy.yaml").read_text()
+    postgres_policy = (manifest_dir / "postgres-network-policy.yaml").read_text()
+    kustomization = (manifest_dir / "kustomization.yaml").read_text()
+
+    assert "podSelector: {}" in default_deny
+    assert "- Ingress" in default_deny
+    assert "- Egress" in default_deny
+    assert "port: 53" in api_policy
+    assert "port: 5432" in api_policy
+    assert "port: 11434" in api_policy
+    assert "app: private-ai-lab-api" in postgres_policy
+    assert "port: 5432" in postgres_policy
+    assert kustomization.count("network-policy.yaml") == 3

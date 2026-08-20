@@ -29,6 +29,7 @@ es spaeter mit wenig Nacharbeit oeffentlich gezeigt werden kann.
 - k3d/Kubernetes-Manifeste als Deployment-Demo
 - GitHub Actions fuer Lint und Tests
 - Non-root Container und Kubernetes `restricted` Pod Security mit getesteten Security Contexts
+- Default-deny `NetworkPolicy` mit expliziten API-, Postgres-, DNS- und Ollama-Pfaden
 
 ## Architektur
 
