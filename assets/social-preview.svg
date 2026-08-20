@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title description">
+  <title id="title">Private AI Lab</title>
+  <desc id="description">A typographic cover for a local private AI platform.</desc>
+  <rect width="1280" height="640" fill="#f4f1e8"/>
+  <rect x="0" y="0" width="16" height="640" fill="#167c5a"/>
+  <text x="88" y="270" fill="#14251f" font-family="Georgia, serif" font-size="92">Private AI Lab</text>
+  <text x="92" y="360" fill="#466159" font-family="Helvetica Neue, Arial, sans-serif" font-size="27">Local RAG, explicit data boundaries and observable inference.</text>
+  <line x1="88" y1="500" x2="1200" y2="500" stroke="#c8d2cb"/>
+  <text x="88" y="552" fill="#167c5a" font-family="Helvetica Neue, Arial, sans-serif" font-size="17" letter-spacing="2">FASTAPI  /  PGVECTOR  /  OLLAMA</text>
+  <text x="1200" y="552" fill="#466159" text-anchor="end" font-family="Helvetica Neue, Arial, sans-serif" font-size="17">leonwwest</text>
+</svg>
