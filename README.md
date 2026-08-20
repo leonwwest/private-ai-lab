@@ -50,7 +50,7 @@ Dieser Modus ist fuer schnelle Code-Tests gedacht. Er nutzt keinen Postgres-Star
 und keinen echten LLM-Call.
 
 ```bash
-cd /Users/leonwestermeir/Documents/private-ai-lab
+cd /Users/leonwestermeir/Projects/private-ai-lab
 make venv
 make test
 INIT_DB_ON_STARTUP=false LLM_BASE_URL=mock .venv/bin/uvicorn app.main:app --reload
@@ -67,7 +67,7 @@ curl http://localhost:8000/healthz
 Voraussetzung: Docker ist installiert und laeuft.
 
 ```bash
-cd /Users/leonwestermeir/Documents/private-ai-lab
+cd /Users/leonwestermeir/Projects/private-ai-lab
 cp .env.example .env
 docker compose up --build
 ```
