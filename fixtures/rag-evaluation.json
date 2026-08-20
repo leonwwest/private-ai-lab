@@ -1,0 +1,32 @@
+{
+  "name": "synthetic-private-ai-contract-v1",
+  "dimensions": 128,
+  "documents": [
+    {
+      "id": "authentication",
+      "text": "Bearer API key authentication protects document upload and chat endpoints. Health endpoints remain public."
+    },
+    {
+      "id": "operations",
+      "text": "The readyz readiness endpoint reports failure when the Postgres database is unavailable. The healthz endpoint remains a liveness signal."
+    },
+    {
+      "id": "privacy",
+      "text": "Uploaded PDF content stays local. Structured logs exclude document text, embeddings, API keys and personal data."
+    }
+  ],
+  "queries": [
+    {
+      "question": "Which bearer API key authentication protects the document upload endpoint?",
+      "expected_document_id": "authentication"
+    },
+    {
+      "question": "Why does readyz report failure when the Postgres database is unavailable?",
+      "expected_document_id": "operations"
+    },
+    {
+      "question": "Does uploaded PDF content stay local and out of structured logs?",
+      "expected_document_id": "privacy"
+    }
+  ]
+}

@@ -2,13 +2,14 @@ PYTHON ?= python3
 VENV := .venv
 BIN := $(VENV)/bin
 
-.PHONY: help venv test lint security verify run compose-up compose-down docker-build k3d-up k3d-down
+.PHONY: help venv test lint rag-eval security verify run compose-up compose-down docker-build k3d-up k3d-down
 
 help:
 	@echo "Targets:"
 	@echo "  make venv          create local virtualenv and install dev deps"
 	@echo "  make test          run pytest"
 	@echo "  make lint          run ruff"
+	@echo "  make rag-eval      run deterministic offline retrieval evaluation"
 	@echo "  make security      scan secrets and configuration with Trivy"
 	@echo "  make verify        run lint, tests and security scan"
 	@echo "  make run           run FastAPI locally without Docker"
@@ -26,10 +27,13 @@ test:
 lint:
 	$(BIN)/python -m ruff check .
 
+rag-eval:
+	$(BIN)/python -m tools.rag_evaluation
+
 security:
 	trivy fs --scanners secret,misconfig --severity HIGH,CRITICAL --exit-code 1 .
 
-verify: lint test security
+verify: lint test rag-eval security
 
 run:
 	INIT_DB_ON_STARTUP=false LLM_BASE_URL=mock $(BIN)/python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
